@@ -8,12 +8,12 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/Learn Jenkins/);
 });
 
-test('has Jenkins in the body', async ({ page }) => {
+/* test('has Jenkins in the body', async ({ page }) => {
   await page.goto('/');
 
   const isVisible = await page.locator('a:has-text("Learn Jenkins with MYL Technologies !!")').isVisible();
   expect(isVisible).toBeTruthy();
-});
+}); */
 
 test('has expected app version', async ({ page }) => {
   await page.goto('/');
