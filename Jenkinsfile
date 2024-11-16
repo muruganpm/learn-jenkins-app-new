@@ -61,7 +61,7 @@ pipeline
                   npx playwright test
                   '''
             }                
-    }
+         }
     post 
     {
         always
@@ -69,4 +69,6 @@ pipeline
             junit 'test-results/junit.xml'
         }
     }   
+ }
 }
+
