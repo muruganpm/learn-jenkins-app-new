@@ -75,9 +75,20 @@ pipeline {
                 }
             }
             steps {
-                sh '''
-                  
-                '''
+                  script {
+            // Install dependencies (this could be done in the build step already)
+            sh 'npm install'
+            
+            // Start the application on port 3000
+            // This will start the app in the container
+            sh 'npm start &'
+            
+            // Give the app a moment to initialize
+            sleep 5
+
+            // You can verify if it's running via a curl request (optional)
+            sh 'curl http://localhost:3000'
+                  }
             }
         }
     }
