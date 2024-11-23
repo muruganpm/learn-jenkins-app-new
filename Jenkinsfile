@@ -1,7 +1,12 @@
 pipeline
 {
     agent any
-
+         environment
+             {
+                 NETLIFY_SITE_ID = 'b48b3df2-da26-4ee3-948f-a1473dd5061d'
+                 
+             }
+    
     stages 
     {
         stage('Build') 
@@ -65,8 +70,22 @@ pipeline
             }
             
         }
-        
-    }
+       stage('Deploy') 
+        {
+             agent
+            {
+                docker
+                {
+                    image node:18-alpine
+                    reuseNode true
+                }
+            }
+            steps
+            {
+                sh '''
+                   echo 'successfully deployed to NETLIFY SITE : $NETLIFY_SITE_ID'
+                sh '''
+            }
     post
     {
         always
