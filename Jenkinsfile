@@ -87,6 +87,7 @@ pipeline {
 
                     // Run the Docker container (map the port to host machine port 3000)
                     sh 'docker run -d -p 3000:3000 --name my-node-app-container my-node-app-image'
+                    sh 'docker ps'
 
                     // Optionally: Wait for the container to be up (can be reduced or removed based on your app)
                     sleep 5
