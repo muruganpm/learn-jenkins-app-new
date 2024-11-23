@@ -68,26 +68,28 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
+            agent any
+            
             steps {
                   script {
-            // Install dependencies (this could be done in the build step already)
-            sh 'npm install'
-            
-            // Start the application on port 3000
-            // This will start the app in the container
-            sh 'npm start'
-            
-            // Give the app a moment to initialize
-            sleep 5
+              // Set up temporary directory to store the built files
+            def tmpDir = '/tmp/my-node-app'
 
-            // You can verify if it's running via a curl request (optional)
-            sh 'curl http://localhost:3000'
+            // Ensure any previous build is cleaned up
+            sh "rm -rf ${tmpDir}"
+
+            // Copy the build files to the tmp directory (assuming build is done already in the build stage)
+            sh "mkdir -p ${tmpDir}"
+            sh "cp -r build/* ${tmpDir}/"
+
+            // Build the Docker image
+            sh 'docker build -t my-node-app-image .'
+
+            // Run the Docker container (map the port to host machine port 3000)
+            sh 'docker run -d -p 3000:3000 --name my-node-app-container my-node-app-image'
+
+            // Optionally: Wait for the container to be up (can be reduced or removed based on your app)
+            sleep 5
                   }
             }
         }
