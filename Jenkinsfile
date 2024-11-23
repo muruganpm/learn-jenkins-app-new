@@ -81,7 +81,7 @@ pipeline {
             
             // Start the application on port 3000
             // This will start the app in the container
-            sh 'npm start &'
+            sh 'npm start'
             
             // Give the app a moment to initialize
             sleep 5
