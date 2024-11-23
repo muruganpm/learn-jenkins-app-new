@@ -67,7 +67,7 @@ pipeline {
             }
             steps {
                 sh '''
-                   echo 'Successfully deployed to NETLIFY SITE: $NETLIFY_SITE_ID'
+                   echo "Successfully deployed to NETLIFY SITE: $NETLIFY_SITE_ID"
                 '''
             }
         }
