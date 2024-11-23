@@ -68,7 +68,6 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent any
             
             steps {
                   script {
