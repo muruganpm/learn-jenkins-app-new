@@ -73,23 +73,24 @@ pipeline {
             steps {
                   script {
               // Set up temporary directory to store the built files
-            def tmpDir = '/tmp/my-node-app'
+                    def tmpDir = '/tmp/my-node-app'
 
-            // Ensure any previous build is cleaned up
-            sh "rm -rf ${tmpDir}"
+                    // Ensure any previous build is cleaned up
+                    sh "rm -rf ${tmpDir}"
 
-            // Copy the build files to the tmp directory (assuming build is done already in the build stage)
-            sh "mkdir -p ${tmpDir}"
-            sh "cp -r build/* ${tmpDir}/"
+                    // Ensure 'build' directory exists before copying
+                    sh 'ls -la build'  // Verify 'build' directory exists
+                    sh "mkdir -p ${tmpDir}"
+                    sh "cp -r build/* ${tmpDir}/"  // Copy build files to tmp directory
 
-            // Build the Docker image
-            sh 'docker build -t my-node-app-image .'
+                    // Build the Docker image
+                    sh 'docker build -t my-node-app-image .'
 
-            // Run the Docker container (map the port to host machine port 3000)
-            sh 'docker run -d -p 3000:3000 --name my-node-app-container my-node-app-image'
+                    // Run the Docker container (map the port to host machine port 3000)
+                    sh 'docker run -d -p 3000:3000 --name my-node-app-container my-node-app-image'
 
-            // Optionally: Wait for the container to be up (can be reduced or removed based on your app)
-            sleep 5
+                    // Optionally: Wait for the container to be up (can be reduced or removed based on your app)
+                    sleep 5
                   }
             }
         }
