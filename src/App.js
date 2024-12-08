@@ -12,7 +12,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn Jenkins with MYL Technologies
+          Learn Jenkins with MYL Technologies - changes made
         </a>
       </header>
       <p>
