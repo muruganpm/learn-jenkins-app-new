@@ -1,20 +1,22 @@
-# Use the official Node.js image from Docker Hub
+
 FROM node:18-alpine
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy the package.json and package-lock.json to the container
+RUN apk update && apk add --no-cache \
+    git \
+    nodejs \
+    npm
+RUN git clone https://github.com/muruganpm/learn-jenkins-app-new.git .
+
 COPY package*.json ./
 
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code to the container
 COPY . .
 
-# Expose the port the app will run on (e.g., 3000)
 EXPOSE 3000
 
-# Start the application
 CMD ["npm", "start"]
+~
+
